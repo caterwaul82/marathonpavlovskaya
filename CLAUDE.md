@@ -4,7 +4,9 @@
 
 ## Структура
 - `index.html` — весь сайт одной статической страницей (CSS внутри, картинки встроены base64). Сборки нет.
-- Контакты на сайте: Telegram https://t.me/pavlovvvskaya, почта caterwaul5@mail.ru.
+- `api/telegram.js` — Vercel-функция, вебхук бота @marathonpavlovskaya_bot (анкета из 7 вопросов → заявка владельцу в личку).
+  Без базы данных: состояние анкеты хранится в скрытой ссылке 📝 в сообщении с вопросом.
+- Кнопки на сайте ведут на https://t.me/marathonpavlovskaya_bot?start=site. Почта на сайте: caterwaul5@mail.ru.
 
 ## Хостинг
 - Vercel, команда `marafoningizing` (team_bSJHUTIQEIWQ8BT0Sh0LoYVT).
@@ -13,6 +15,7 @@
 - Первый деплой сделан вручную из ветки `claude/deploy-site-vercel-oo5r3g`.
   Автодеплой из GitHub ещё не настроен: нужно подключить репозиторий в Vercel → Settings → Git.
 
-## Планы
-- Подключить Telegram-бота (задача в работе).
-- Токен бота хранить только в переменных окружения Vercel (например, `TELEGRAM_BOT_TOKEN`), не в коде.
+## Telegram-бот
+- Переменные Vercel: `TELEGRAM_BOT_TOKEN` (токен), `TELEGRAM_CHAT_ID` (личка владельца для заявок). Токены в код не класть.
+- Вебхук подключается открытием `/api/telegram?setup=<sha256(token)[:32]>`; там же уходит тестовое сообщение владельцу.
+- Команда `/id` в боте показывает chat_id.
